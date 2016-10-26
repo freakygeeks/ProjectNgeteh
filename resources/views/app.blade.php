@@ -37,10 +37,13 @@
 					<li><a href="{{ url('/') }}">{{trans('menu.dashboard')}}</a></li>
 					@if (Auth::check())
 						
-						<li><a href="{{ url('/products') }}">{{trans('menu.products')}}</a></li>
+						<li><a href="{{ url('/items') }}">{{trans('menu.items')}}</a></li>
+<!-- 						<li><a href="{{ url('/item-kits') }}">{{trans('menu.item_kits')}}</a></li>
+						<li><a href="{{ url('/sales') }}">{{trans('menu.sales')}}</a></li> -->
 						<li><a href="{{ url('/customers') }}">{{trans('menu.customers')}}</a></li>
 						<li><a href="{{ url('/suppliers') }}">{{trans('menu.suppliers')}}</a></li>
 						<li><a href="{{ url('/employees') }}">{{trans('menu.employees')}}</a></li>
+<!-- 						<li><a href="{{ url('/receivings') }}">{{trans('menu.receivings')}}</a></li> -->
 					@endif
 				</ul>
 
@@ -69,8 +72,8 @@
                 <nav class="navbar navbar-default navbar-fixed-side">
                     <ul class="nav">
                     <!-- normal collapsible navbar markup -->
-                    	<li><a href="{{ url('/sales') }}">{{trans('menu.sales')}}</a></li>
-                    	<li><a href="{{ url('/receivings') }}">{{trans('menu.receivings')}}</a></li>
+                    	<li><a href="{{ url('/sales') }}">Sale</a></li>
+                    	<li><a href="{{ url('/receivings') }}">Purchase</a></li>
                     	<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{trans('menu.reports')}} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">

@@ -2,7 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Product;
+use App\Item;
 use App\Inventory;
 use App\Http\Requests\InventoryRequest;
 use \Auth, \Redirect, \Validator, \Input, \Session;
@@ -64,10 +64,10 @@ class InventoryController extends Controller {
 	 */
 	public function edit($id)
 	{
-			$products = Product::find($id);
+			$items = Item::find($id);
 			$inventories = Inventory::all();
 			return view('inventory.edit')
-	            ->with('product', $products)
+	            ->with('item', $items)
 	            ->with('inventory', $inventories);
 	}
 
@@ -79,19 +79,19 @@ class InventoryController extends Controller {
 	 */
 	public function update(InventoryRequest $request, $id)
 	{
-	            $products = Product::find($id);
-	            $products->quantity = $products->quantity + Input::get('in_out_qty');
-	            $products->save();
+	            $items = Item::find($id);
+	            $items->quantity = $items->quantity + Input::get('in_out_qty');
+	            $items->save();
 	            
 	            $inventories = new Inventory;
-	            $inventories->product_id = $id;
+	            $inventories->item_id = $id;
 	            $inventories->user_id = Auth::user()->id;
 	            $inventories->in_out_qty = Input::get('in_out_qty');
 	            $inventories->remarks = Input::get('remarks');
 	            $inventories->save();
 	            
 
-	            Session::flash('message', 'You have successfully updated product');
+	            Session::flash('message', 'You have successfully updated item');
 	            return Redirect::to('inventory/' . $id . '/edit');
 	}
 

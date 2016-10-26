@@ -130,7 +130,7 @@ class EmployeeController extends Controller {
 	{
 		if($id == 1)
 		{
-			Session::flash('message', 'You cannot delete admin on Ngeteh demo');
+			Session::flash('message', 'You cannot delete admin on TutaPOS demo');
 			Session::flash('alert-class', 'alert-danger');
 	            return Redirect::to('employees');
 		}

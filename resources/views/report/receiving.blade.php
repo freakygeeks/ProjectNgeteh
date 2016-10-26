@@ -8,13 +8,13 @@
 				<div class="panel-heading">{{trans('report-receiving.reports')}} - {{trans('report-receiving.receivings_report')}}</div>
 
 				<div class="panel-body">
-<div class="well well-sm">{{trans('report-receiving.grand_total')}}: RM {{DB::table('receiving_products')->sum('total_cost')}}</div>
+<div class="well well-sm">{{trans('report-receiving.grand_total')}}: {{DB::table('receiving_items')->sum('total_cost')}}</div>
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
             <td>{{trans('report-receiving.receiving_id')}}</td>
             <td>{{trans('report-receiving.date')}}</td>
-            <td>{{trans('report-receiving.products_received')}}</td>
+            <td>{{trans('report-receiving.items_received')}}</td>
             <td>{{trans('report-receiving.received_by')}}</td>
             <td>{{trans('report-receiving.supplied_by')}}</td>
             <td>{{trans('report-receiving.total')}}</td>
@@ -28,10 +28,10 @@
         <tr>
             <td>{{ $value->id }}</td>
             <td>{{ $value->created_at }}</td>
-            <td>{{DB::table('receiving_products')->where('receiving_id', $value->id)->sum('quantity')}}</td>
+            <td>{{DB::table('receiving_items')->where('receiving_id', $value->id)->sum('quantity')}}</td>
             <td>{{ $value->user->name }}</td>
             <td>{{ $value->supplier->company_name }}</td>
-            <td>RM {{DB::table('receiving_products')->where('receiving_id', $value->id)->sum('total_cost')}}</td>
+            <td>{{DB::table('receiving_items')->where('receiving_id', $value->id)->sum('total_cost')}}</td>
             <td>{{ $value->payment_type }}</td>
             <td>{{ $value->comments }}</td>
             <td>
@@ -43,17 +43,17 @@
                 <td colspan="9">
                     <table class="table">
                         <tr>
-                            <td>{{trans('report-receiving.product_id')}}</td>
-                            <td>{{trans('report-receiving.product_name')}}</td>
-                            <td>{{trans('report-receiving.product_received')}}</td>
+                            <td>{{trans('report-receiving.item_id')}}</td>
+                            <td>{{trans('report-receiving.item_name')}}</td>
+                            <td>{{trans('report-receiving.item_received')}}</td>
                             <td>{{trans('report-receiving.total')}}</td>
                         </tr>
                         @foreach(ReportReceivingsDetailed::receiving_detailed($value->id) as $receiving_detailed)
                         <tr>
-                            <td>{{ $receiving_detailed->product_id }}</td>
-                            <td>{{ $receiving_detailed->product->product_name }}</td>
+                            <td>{{ $receiving_detailed->item_id }}</td>
+                            <td>{{ $receiving_detailed->item->item_name }}</td>
                             <td>{{ $receiving_detailed->quantity }}</td>
-                            <td>RM {{ $receiving_detailed->quantity * $receiving_detailed->cost_price}}</td>
+                            <td>{{ $receiving_detailed->quantity * $receiving_detailed->cost_price}}</td>
                         </tr>
                         @endforeach
                     </table>

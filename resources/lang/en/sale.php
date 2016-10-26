@@ -2,14 +2,14 @@
 
 return [
 
-	'sales_register' => 'SALES REGISTER',
-	'search_product' => 'Search Product:',
+	'sales_register' => 'Sales Register',
+	'search_item' => 'Search Product:',
 	'invoice' => 'Invoice',
 	'employee' => 'Employee',
 	'payment_type' => 'Payment Type',
 	'customer' => 'Customer',
-	'product_id' => 'Product ID',
-	'product_name' => 'Product Name',
+	'item_id' => 'Product ID',
+	'item_name' => 'Product Name',
 	'price' => 'Price',
 	'quantity' => 'Quantity',
 	'total' => 'Total',
@@ -20,7 +20,7 @@ return [
 	'submit' => 'Complete Sale',
 	//struk
 	'sale_id' => 'Sale ID',
-	'product' => 'Product',
+	'item' => 'Product',
 	'price' => 'Price',
 	'qty' => 'Qty',
 	'print' => 'Print',

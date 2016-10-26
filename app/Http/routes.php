@@ -30,7 +30,8 @@ Route::group(['middleware' => 'languange'], function()
 	Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 	Route::resource('customers', 'CustomerController');
-	Route::resource('products', 'ProductController');
+	Route::resource('items', 'ItemController');
+	Route::resource('item-kits', 'ItemKitController');
 	Route::resource('inventory', 'InventoryController');
 	Route::resource('suppliers', 'SupplierController');
 	Route::resource('receivings', 'ReceivingController');
@@ -42,17 +43,22 @@ Route::group(['middleware' => 'languange'], function()
 
 	Route::resource('employees', 'EmployeeController');
 
-	Route::resource('api/product', 'ReceivingApiController');
+	Route::resource('api/item', 'ReceivingApiController');
 	Route::resource('api/receivingtemp', 'ReceivingTempApiController');
 
 	Route::resource('api/saletemp', 'SaleTempApiController');
+
+	Route::resource('api/itemkittemp', 'ItemKitController');
+	Route::get('api/item-kit-temp', 'ItemKitController@itemKitApi');
+	Route::get('api/item-kits', 'ItemKitController@itemKits');
+	Route::post('store-item-kits', 'ItemKitController@storeItemKits');
 
 	Route::resource('ngeteh-settings', 'NgetehSettingController');
 });
 /*
 Route::group(['middleware' => 'role'], function()
     {
-        Route::get('products', function()
+        Route::get('items', function()
         {
             return 'Is admin';
         });

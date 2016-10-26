@@ -1,9 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-use App\Product, App\Customer, App\Sale;
+use App\Item, App\Customer, App\Sale;
 use App\Supplier, App\Receiving, App\User;
 use App;
-use App\Http\Controllers\Controller;
 
 class HomeController extends Controller {
 
@@ -35,14 +34,16 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		$products = Product::where('type', 1)->count();
+		$items = Item::where('type', 1)->count();
+		$item_kits = Item::where('type', 2)->count();
 		$customers = Customer::count();
 		$suppliers = Supplier::count();
 		$receivings = Receiving::count();
 		$sales = Sale::count();
 		$employees = User::count();
 		return view('home')
-			->with('products', $products)
+			->with('items', $items)
+			->with('item_kits', $item_kits)
 			->with('customers', $customers)
 			->with('suppliers', $suppliers)
 			->with('receivings', $receivings)
