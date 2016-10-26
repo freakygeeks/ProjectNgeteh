@@ -10,37 +10,62 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::group(['middleware' => 'languange'], function()
+{
+	Route::get('/', 'HomeController@index');
 
-Route::get('/', function () {
-    return view('welcome');
+	Route::get('home', 'HomeController@index');
+
+	// Authentication routes...
+	Route::get('auth/login', 'Auth\AuthController@getLogin');
+	Route::post('auth/login', 'Auth\AuthController@postLogin');
+	Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+	// Password reset link request routes...
+	Route::get('password/email', 'Auth\PasswordController@getEmail');
+	Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+	// Password reset routes...
+	Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+	Route::post('password/reset', 'Auth\PasswordController@postReset');
+
+	Route::resource('customers', 'CustomerController');
+	Route::resource('items', 'ItemController');
+	Route::resource('item-kits', 'ItemKitController');
+	Route::resource('inventory', 'InventoryController');
+	Route::resource('suppliers', 'SupplierController');
+	Route::resource('receivings', 'ReceivingController');
+	Route::resource('receiving-item', 'ReceivingItemController');
+	Route::resource('sales', 'SaleController');
+
+	Route::resource('reports/receivings', 'ReceivingReportController');
+	Route::resource('reports/sales', 'SaleReportController');
+
+	Route::resource('employees', 'EmployeeController');
+
+	Route::resource('api/item', 'ReceivingApiController');
+	Route::resource('api/receivingtemp', 'ReceivingTempApiController');
+
+	Route::resource('api/saletemp', 'SaleTempApiController');
+
+	Route::resource('api/itemkittemp', 'ItemKitController');
+	Route::get('api/item-kit-temp', 'ItemKitController@itemKitApi');
+	Route::get('api/item-kits', 'ItemKitController@itemKits');
+	Route::post('store-item-kits', 'ItemKitController@storeItemKits');
+
+	Route::resource('tutapos-settings', 'TutaposSettingController');
 });
+/*
+Route::group(['middleware' => 'role'], function()
+    {
+        Route::get('items', function()
+        {
+            return 'Is admin';
+        });
+    });
 
-/**
-Route::resource('products', 'ProductController');
-Route for product
-**/
-Route::get('/products/create/', 'ProductController@create');
-Route::get('/products', 'ProductController@index');
-Route::get('/products/{products}', 'ProductController@show');
-Route::post('/products', 'ProductController@store');
-
-Route::delete('/products/{products}', 'ProductController@destroy');
-Route::get('/products/{products}/edit', 'ProductController@edit');
-Route::patch('/products/{products}', 'ProductController@update');
-
-/**
-Route::resource('sales', 'SaleController');
-Route for sale
-**/
-Route::get('/sales/create', 'SaleController@create');
-Route::get('/sales', 'SaleController@index');
-Route::get('/sales/{sales}', 'SaleController@show');
-Route::post('/sales', 'SaleController@store');
-
-Route::delete('/sales/{sales}', 'SaleController@destroy');
-Route::get('/sales/{sales}/edit', 'SaleController@edit');
-Route::patch('/sales/{sales}', 'SaleController@update');
-
-
-Route::get('/suppliers', 'SupplierController@index');
-Route::get('/purchases', 'PurchaseController@index');
+Route::get('sales', [  
+    'middleware' => 'role',
+    'uses' => 'SaleController@index'
+]);
+*/
