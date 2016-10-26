@@ -3,19 +3,19 @@
 return [
 
 	'reports' => 'Reports',
-	'receivings_report' => 'RECEIVINGS REPORT',
+	'receivings_report' => 'Purchases Report',
 	'grand_total' => 'TOTAL',
-	'receiving_id' => 'Receivings ID',
+	'receiving_id' => 'Purchase ID',
 	'date' => 'Date',
-	'products_received' => 'Total Products Received',
-	'received_by' => 'Received By',
+	'items_received' => 'Total Products Purchase',
+	'received_by' => 'Purchased By',
 	'supplied_by' => 'Supplied By',
-	'total' => 'Total Price',
+	'total' => 'Total',
 	'payment_type' => 'Payment Type',
 	'comments' => 'Comments',
 	'detail' => 'Detail',
-	'product_id' => 'Product ID',
-	'product_name' => 'Product Name:',
-	'product_received' => 'Quantity Received',
+	'item_id' => 'Product ID',
+	'item_name' => 'Product Name:',
+	'item_received' => 'Product Purchase',
 
 ];

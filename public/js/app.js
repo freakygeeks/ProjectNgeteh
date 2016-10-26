@@ -1,18 +1,18 @@
 (function(){
     var app = angular.module('ngeteh', [ ]);
 
-    app.controller("SearchProductCtrl", [ '$scope', '$http', function($scope, $http) {
-        $scope.products = [ ];
-        $http.get('api/product').success(function(data) {
-            $scope.products = data;
+    app.controller("SearchItemCtrl", [ '$scope', '$http', function($scope, $http) {
+        $scope.items = [ ];
+        $http.get('api/item').success(function(data) {
+            $scope.items = data;
         });
         $scope.receivingtemp = [ ];
         $scope.newreceivingtemp = { };
         $http.get('api/receivingtemp').success(function(data, status, headers, config) {
             $scope.receivingtemp = data;
         });
-        $scope.addReceivingTemp = function(product,newreceivingtemp) {
-            $http.post('api/receivingtemp', { product_id: product.id, cost_price: product.cost_price, total_cost: product.cost_price, type: product.type }).
+        $scope.addReceivingTemp = function(item,newreceivingtemp) {
+            $http.post('api/receivingtemp', { item_id: item.id, cost_price: item.cost_price, total_cost: item.cost_price, type: item.type }).
             success(function(data, status, headers, config) {
                 $scope.receivingtemp.push(data);
                     $http.get('api/receivingtemp').success(function(data) {
@@ -21,7 +21,7 @@
             });
         }
         $scope.updateReceivingTemp = function(newreceivingtemp) {
-            $http.put('api/receivingtemp/' + newreceivingtemp.id, { quantity: newreceivingtemp.quantity, total_cost: newreceivingtemp.product.cost_price * newreceivingtemp.quantity }).
+            $http.put('api/receivingtemp/' + newreceivingtemp.id, { quantity: newreceivingtemp.quantity, total_cost: newreceivingtemp.item.cost_price * newreceivingtemp.quantity }).
             success(function(data, status, headers, config) {
                 });
         }
@@ -36,7 +36,7 @@
         $scope.sum = function(list) {
             var total=0;
             angular.forEach(list , function(newreceivingtemp){
-                total+= parseFloat(newreceivingtemp.product.cost_price * newreceivingtemp.quantity);
+                total+= parseFloat(newreceivingtemp.item.cost_price * newreceivingtemp.quantity);
             });
             return total;
         }

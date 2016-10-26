@@ -16,7 +16,7 @@ table td {
     <div class="row">
         <div class="col-md-12">
             {{trans('receiving.supplier')}}: {{ $receivings->supplier->company_name}}<br />
-            {{trans('receiving.receiving_id')}}: RECV{{$receivingProductsData->receiving_id}}<br />
+            {{trans('receiving.receiving_id')}}: RECV{{$receivingItemsData->receiving_id}}<br />
             {{trans('receiving.employee')}}: {{$receivings->user->name}}<br />
         </div>
     </div>
@@ -25,14 +25,14 @@ table td {
             <div class="table-responsive">
            <table class="table">
                 <tr>
-                    <td>{{trans('receiving.product')}}</td>
+                    <td>{{trans('receiving.item')}}</td>
                     <td>{{trans('receiving.price')}}</td>
                     <td>{{trans('receiving.qty')}}</td>
                     <td>{{trans('receiving.total')}}</td>
                 </tr>
-                @foreach($receivingProducts as $value)
+                @foreach($receivingItems as $value)
                 <tr>
-                    <td>{{$value->product->product_name}}</td>
+                    <td>{{$value->item->item_name}}</td>
                     <td>{{$value->cost_price}}</td>
                     <td>{{$value->quantity}}</td>
                     <td>{{$value->total_cost}}</td>

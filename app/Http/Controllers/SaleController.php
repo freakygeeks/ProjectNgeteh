@@ -4,10 +4,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Sale;
 use App\SaleTemp;
-use App\SaleProduct;
+use App\SaleItem;
 use App\Inventory;
 use App\Customer;
-use App\Product;
+use App\Item, App\ItemKitItem;
 use App\Http\Requests\SaleRequest;
 use \Auth, \Redirect, \Validator, \Input, \Session;
 use Illuminate\Http\Request;
@@ -50,58 +50,65 @@ class SaleController extends Controller {
 	 */
 	public function store(SaleRequest $request)
 	{
-
-		// $this->validate($request, [
-  //   		'product_id' => 'required',
-		// ]);
-
 	    $sales = new Sale;
         $sales->customer_id = Input::get('customer_id');
         $sales->user_id = Auth::user()->id;
         $sales->payment_type = Input::get('payment_type');
         $sales->comments = Input::get('comments');
         $sales->save();
-        // process sale products
-        $saleProducts = SaleTemp::all();
-
-		foreach ($saleProducts as $value) {
-			$saleProductsData = new SaleProduct;
-			$saleProductsData->sale_id = $sales->id;
-			$saleProductsData->product_id = $value->product_id;
-			$saleProductsData->cost_price = $value->cost_price;
-			$saleProductsData->selling_price = $value->selling_price;
-			$saleProductsData->quantity = $value->quantity;
-			$saleProductsData->total_cost = $value->total_cost;
-			$saleProductsData->total_selling = $value->total_selling;
-			$saleProductsData->save();
+        // process sale items
+        $saleItems = SaleTemp::all();
+		foreach ($saleItems as $value) {
+			$saleItemsData = new SaleItem;
+			$saleItemsData->sale_id = $sales->id;
+			$saleItemsData->item_id = $value->item_id;
+			$saleItemsData->cost_price = $value->cost_price;
+			$saleItemsData->selling_price = $value->selling_price;
+			$saleItemsData->quantity = $value->quantity;
+			$saleItemsData->total_cost = $value->total_cost;
+			$saleItemsData->total_selling = $value->total_selling;
+			$saleItemsData->save();
 			//process inventory
-			$products = Product::find($value->product_id);
-			if($products->type == 1)
+			$items = Item::find($value->item_id);
+			if($items->type == 1)
 			{
 				$inventories = new Inventory;
-				$inventories->product_id = $value->product_id;
+				$inventories->item_id = $value->item_id;
 				$inventories->user_id = Auth::user()->id;
 				$inventories->in_out_qty = -($value->quantity);
 				$inventories->remarks = 'SALE'.$sales->id;
 				$inventories->save();
-				//process product quantity
-	            $products->quantity = $products->quantity - $value->quantity;
-	            $products->save();
+				//process item quantity
+	            $items->quantity = $items->quantity - $value->quantity;
+	            $items->save();
         	}
         	else
         	{
-        		//todo
+	        	$itemkits = ItemKitItem::where('item_kit_id', $value->item_id)->get();
+				foreach($itemkits as $item_kit_value)
+				{
+					$inventories = new Inventory;
+					$inventories->item_id = $item_kit_value->item_id;
+					$inventories->user_id = Auth::user()->id;
+					$inventories->in_out_qty = -($item_kit_value->quantity * $value->quantity);
+					$inventories->remarks = 'SALE'.$sales->id;
+					$inventories->save();
+					//process item quantity
+					$item_quantity = Item::find($item_kit_value->item_id);
+		            $item_quantity->quantity = $item_quantity->quantity - ($item_kit_value->quantity * $value->quantity);
+		            $item_quantity->save();
+				}
         	}
 		}
 		//delete all data on SaleTemp model
 		SaleTemp::truncate();
-        $productssale = SaleProduct::where('sale_id', $saleProductsData->sale_id)->get();
+        $itemssale = SaleItem::where('sale_id', $saleItemsData->sale_id)->get();
             Session::flash('message', 'You have successfully added sales');
             //return Redirect::to('receivings');
             return view('sale.complete')
             	->with('sales', $sales)
-            	->with('saleProductsData', $saleProductsData)
-            	->with('saleProducts', $productssale);
+            	->with('saleItemsData', $saleItemsData)
+            	->with('saleItems', $itemssale);
 
 	}
 

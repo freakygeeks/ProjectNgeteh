@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-md-12 col-md-offset-0">
 			<div class="panel panel-default">
-				<div class="panel-heading">LANGUAGE SETTINGS</div>
+				<div class="panel-heading">Language Settings</div>
 
 				<div class="panel-body">
 					@if (Session::has('message'))
@@ -17,7 +17,7 @@
 
 					<div class="form-group">
 					{!! Form::label('language', 'Language') !!}
-					{!! Form::select('language', array('en' => 'English', 'my' => 'Malay'), Input::old('language'), array('class' => 'form-control')) !!}
+					{!! Form::select('language', array('en' => 'English', 'id' => 'Indonesia', 'es' => 'Spanish'), Input::old('language'), array('class' => 'form-control')) !!}
 					</div>
 
 					{!! Form::submit('Submit', array('class' => 'btn btn-primary')) !!}

@@ -21,7 +21,7 @@
             <td>{{trans('customer.name')}}</td>
 <!--             <td>{{trans('customer.email')}}</td> -->
             <td>{{trans('customer.phone_number')}}</td>
-            <td>{{trans('product.admin')}}</td>
+            <td>{{trans('item.admin')}}</td>
 <!--             <td>{{trans('customer.avatar')}}</td> -->
         </tr>
     </thead>

@@ -10,13 +10,13 @@ table td {
 <div class="container-fluid">
    <div class="row">
         <div class="col-md-12" style="text-align:center">
-            Ngeteh Point of Sale           
+            TutaPOS - Tuta Point of Sale           
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             {{trans('sale.customer')}}: {{ $sales->customer->name}}<br />
-            {{trans('sale.sale_id')}}: SALE{{$saleProductsData->sale_id}}<br />
+            {{trans('sale.sale_id')}}: SALE{{$saleItemsData->sale_id}}<br />
             {{trans('sale.employee')}}: {{$sales->user->name}}<br />
         </div>
     </div>
@@ -25,14 +25,14 @@ table td {
             <div class="table-responsive">
            <table class="table">
                 <tr>
-                    <td>{{trans('sale.product')}}</td>
+                    <td>{{trans('sale.item')}}</td>
                     <td>{{trans('sale.price')}}</td>
                     <td>{{trans('sale.qty')}}</td>
                     <td>{{trans('sale.total')}}</td>
                 </tr>
-                @foreach($saleProducts as $value)
+                @foreach($saleItems as $value)
                 <tr>
-                    <td>{{$value->product->product_name}}</td>
+                    <td>{{$value->item->item_name}}</td>
                     <td>{{$value->selling_price}}</td>
                     <td>{{$value->quantity}}</td>
                     <td>{{$value->total_selling}}</td>
