@@ -1,17 +1,22 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model {
+class Product extends Model
+{
 
-	public function inventory()
+	protected $fillable = ['code', 'name', 'quantity', 'cost_price', 'selling_price'];
+
+    public function path()
     {
-        return $this->hasMany('App\Inventory')->orderBy('id', 'DESC');
+    	return '/products/' . $this->id;
     }
 
-    public function receivingtemp()
+    public function sale()
     {
-        return $this->hasMany('App\ReceivingTemp')->orderBy('id', 'DESC');
+    	return $this->hasMany(Sale::class);
+    	//return $this->hasMany('Sale');
     }
-
 }

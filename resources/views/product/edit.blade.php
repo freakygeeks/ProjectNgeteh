@@ -1,63 +1,34 @@
-@extends('app')
+@extends('layout-product')
 
 @section('content')
-<div class="container">
-	<div class="row">
-		<div class="col-md-12 col-md-offset-0">
-			<div class="panel panel-default">
-				<div class="panel-heading">{{trans('product.update_product')}}</div>
 
-				<div class="panel-body">
-					{!! Html::ul($errors->all()) !!}
-
-					{!! Form::model($product, array('route' => array('products.update', $product->id), 'method' => 'PUT', 'files' => true)) !!}
-
-					<div class="form-group">
-					{!! Form::label('product_code', trans('product.product_code')) !!}
-					{!! Form::text('product_code', null, array('class' => 'form-control')) !!}
-					</div>
-
-					<div class="form-group">
-					{!! Form::label('product_name', trans('product.product_name')) !!}
-					{!! Form::text('product_name', null, array('class' => 'form-control')) !!}
-					</div>
-
-					<div class="form-group">
-					{!! Form::label('size', trans('product.size')) !!}
-					{!! Form::text('size', null, array('class' => 'form-control')) !!}
-					</div>
-
-					<div class="form-group">
-					{!! Form::label('description', trans('product.description')) !!}
-					{!! Form::text('description', null, array('class' => 'form-control')) !!}
-					</div>
-
-					<div class="form-group">
-					{!! Form::label('avatar', trans('product.choose_avatar')) !!}
-					{!! Form::file('avatar', null, array('class' => 'form-control')) !!}
-					</div>
-
-					<div class="form-group">
-					{!! Form::label('cost_price', trans('product.cost_price')) !!}
-					{!! Form::text('cost_price', null, array('class' => 'form-control')) !!}
-					</div>
-
-					<div class="form-group">
-					{!! Form::label('selling_price', trans('product.selling_price')) !!}
-					{!! Form::text('selling_price', null, array('class' => 'form-control')) !!}
-					</div>
-
-					<div class="form-group">
-					{!! Form::label('quantity', trans('product.quantity')) !!}
-					{!! Form::text('quantity', null, array('class' => 'form-control')) !!}
-					</div>
-
-					{!! Form::submit(trans('product.submit'), array('class' => 'btn btn-primary')) !!}
-
-					{!! Form::close() !!}
-				</div>
+		<h1>Update a Product</h1>
+		<form method="POST" action="/products/{{ $products-> id }}">
+			{{ csrf_field() }}
+			{{ method_field('PATCH') }}
+			<div class="form-group">
+				<textarea name="code" class="form-control">{{ $products->code }} </textarea>
 			</div>
-		</div>
-	</div>
-</div>
-@endsection
+
+			<div class="form-group">
+				<textarea name="name" class="form-control">{{ $products->name }}</textarea>
+			</div>
+
+			<div class="form-group">
+				<textarea name="quantity" class="form-control">{{ $products->quantity }}</textarea>
+			</div>
+
+
+			<div class="form-group">
+				<textarea name="cost_price" class="form-control">{{ $products->cost_price }}</textarea>
+			</div>
+
+			<div class="form-group">
+				<textarea name="selling_price" class="form-control">{{ $products->selling_price }}</textarea>
+			</div>
+
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary">Update</button>
+			</div>
+		</form>
+@stop

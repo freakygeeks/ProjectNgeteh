@@ -1,66 +1,41 @@
-@extends('app')
+@extends('layout-product')
 
 @section('content')
-<div class="container">
-	<div class="row">
-		<div class="col-md-12 col-md-offset-0">
-			<div class="panel panel-default">
-				<div class="panel-heading">{{trans('product.new_product')}}</div>
+	
+		<h1>Add a Product</h1>
 
-				<div class="panel-body">
-					@if (Session::has('message'))
-					<div class="alert alert-info">{{ Session::get('message') }}</div>
-					@endif
-					{!! Html::ul($errors->all()) !!}
+		<form method="POST" action="{{ url('products') }}">
+			{{ csrf_field() }}
 
-					{!! Form::open(array('url' => 'products', 'files' => true)) !!}
-
-					<div class="form-group">
-					{!! Form::label('product_code', trans('product.product_code')) !!}
-					{!! Form::text('product_code', Input::old('product_code'), array('class' => 'form-control')) !!}
-					</div>
-
-					<div class="form-group">
-					{!! Form::label('product_name', trans('product.product_name').' *') !!}
-					{!! Form::text('product_name', Input::old('product_name'), array('class' => 'form-control')) !!}
-					</div>
-
-					<div class="form-group">
-					{!! Form::label('size', trans('product.size')) !!}
-					{!! Form::text('size', Input::old('size'), array('class' => 'form-control')) !!}
-					</div>
-
-					<div class="form-group">
-					{!! Form::label('description', trans('product.description')) !!}
-					{!! Form::textarea('description', Input::old('description'), array('class' => 'form-control')) !!}
-					</div>
-
-					<div class="form-group">
-					{!! Form::label('avatar', trans('product.choose_avatar')) !!}
-					{!! Form::file('avatar', Input::old('avatar'), array('class' => 'form-control')) !!}
-					</div>
-
-					<div class="form-group">
-					{!! Form::label('cost_price', trans('product.cost_price').' *') !!}
-					{!! Form::text('cost_price', Input::old('cost_price'), array('class' => 'form-control')) !!}
-					</div>
-
-					<div class="form-group">
-					{!! Form::label('selling_price', trans('product.selling_price').' *') !!}
-					{!! Form::text('selling_price', Input::old('selling_price'), array('class' => 'form-control')) !!}
-					</div>
-
-					<div class="form-group">
-					{!! Form::label('quantity', trans('product.quantity')) !!}
-					{!! Form::text('quantity', Input::old('quantity'), array('class' => 'form-control')) !!}
-					</div>
-
-					{!! Form::submit(trans('product.submit'), array('class' => 'btn btn-primary')) !!}
-
-					{!! Form::close() !!}
-				</div>
+			<br>
+			<h4>Product Code</h4>
+			<div class="form-group">
+				<input name="code" class="form-control" hidden="Product Code">{{ old('code') }}
 			</div>
-		</div>
-	</div>
-</div>
-@endsection
+
+			<h4>Product Name</h4>
+			<div class="form-group">
+				<input name="name" class="form-control">{{ old('name') }}
+			</div>
+
+			<h4>Quantity</h4>
+			<div class="form-group">
+				<input name="quantity" class="form-control">{{ old('quantity') }}
+			</div>
+
+			<h4>Cost Price</h4>
+			<div class="form-group">
+				<input name="cost_price" class="form-control">{{ old('cost_price') }}
+			</div>
+
+			<h4>Selling Price</h4>
+			<div class="form-group">
+				<input name="selling_price" class="form-control">{{ old('selling_price') }}
+			</div>
+
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary">Add</button>
+			</div>
+		</form>
+
+@stop

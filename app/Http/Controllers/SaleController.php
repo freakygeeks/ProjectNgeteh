@@ -1,152 +1,126 @@
-<?php namespace App\Http\Controllers;
+<?php
 
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Sale;
+use App\Product;
+use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Sale;
-use App\SaleTemp;
-use App\SaleProduct;
-use App\Inventory;
-use App\Customer;
-use App\Product;
-use App\Http\Requests\SaleRequest;
-use \Auth, \Redirect, \Validator, \Input, \Session;
-use Illuminate\Http\Request;
 
-class SaleController extends Controller {
+class SaleController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $sales = Sale::all(); /** $sale must be the same name in View folder **/
+        return view('sale.index', compact('sales'));
+    }
 
-	public function __construct()
-	{
-		$this->middleware('auth');
-	}
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create(Request $request, Sale $sales)
+    {
+        // check if sales_id exist
+        // exisst
+        // get sale
+        // retrive sales items
+        // not exist
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$sales = Sale::orderBy('id', 'desc')->first();
-		$customers = Customer::lists('name', 'id');
-		return view('sale.index')
-			->with('sale', $sales)
-			->with('customer', $customers);
-	}
+        $productList = Product::lists('name', 'id', 'selling_price');
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
+        $sales = Sale::all();
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store(SaleRequest $request)
-	{
+        $total = 0;
+        foreach ($sales as $sale) {
+            $total += $sale->total_selling_price;
+        }
+        return view('sale.create', compact('sales', 'productList', 'total'));
+    }
 
-		// $this->validate($request, [
-  //   		'product_id' => 'required',
-		// ]);
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store(Request $request, Product $product)
+    {
+        $this->validate($request, [
+            'id' => 'required',
+            'quantity' => 'required',
+        ]);
 
-	    $sales = new Sale;
-        $sales->customer_id = Input::get('customer_id');
-        $sales->user_id = Auth::user()->id;
-        $sales->payment_type = Input::get('payment_type');
-        $sales->comments = Input::get('comments');
-        $sales->save();
-        // process sale products
-        $saleProducts = SaleTemp::all();
+        //dd($request->all());
+        // $input = $request->all();
+        // Sale::create($input);
+        // return redirect()->back();
 
-		foreach ($saleProducts as $value) {
-			$saleProductsData = new SaleProduct;
-			$saleProductsData->sale_id = $sales->id;
-			$saleProductsData->product_id = $value->product_id;
-			$saleProductsData->cost_price = $value->cost_price;
-			$saleProductsData->selling_price = $value->selling_price;
-			$saleProductsData->quantity = $value->quantity;
-			$saleProductsData->total_cost = $value->total_cost;
-			$saleProductsData->total_selling = $value->total_selling;
-			$saleProductsData->save();
-			//process inventory
-			$products = Product::find($value->product_id);
-			if($products->type == 1)
-			{
-				$inventories = new Inventory;
-				$inventories->product_id = $value->product_id;
-				$inventories->user_id = Auth::user()->id;
-				$inventories->in_out_qty = -($value->quantity);
-				$inventories->remarks = 'SALE'.$sales->id;
-				$inventories->save();
-				//process product quantity
-	            $products->quantity = $products->quantity - $value->quantity;
-	            $products->save();
-        	}
-        	else
-        	{
-        		//todo
-        	}
-		}
-		//delete all data on SaleTemp model
-		SaleTemp::truncate();
-        $productssale = SaleProduct::where('sale_id', $saleProductsData->sale_id)->get();
-            Session::flash('message', 'You have successfully added sales');
-            //return Redirect::to('receivings');
-            return view('sale.complete')
-            	->with('sales', $sales)
-            	->with('saleProductsData', $saleProductsData)
-            	->with('saleProducts', $productssale);
+        $id = $request->id; 
+        $cost_price = Product::where('id' , '=', $id)->value('cost_price');
+        $selling_price = Product::where('id' , '=', $id)->value('selling_price');
 
-	}
+        $add = new Sale();
+        $add->product_id = $request->id; 
+        $add->quantity = $request->quantity;
+        $add->total_cost_price = $request->quantity * $cost_price; 
+        $add->total_selling_price = $request->quantity * $selling_price; 
+        $add->save();
+        return redirect()->back();
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    // public function show($id)
+    public function show(Sale $sales)
+    {
+        //$sale = Sale::find($id);
+        return view('sale.show', compact('sales'));
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit(Sale $sales)
+    {
+        return view('sale.edit', compact('sales'));
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(Request $request, Sale $sales)
+    {
+        $sales->update($request->all());
+        return view('sale.show', compact('sales'));
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy(Request $request, Sale $sales)
+    {
+        $sales->delete();
+        return redirect()->back();
+    }
 }
