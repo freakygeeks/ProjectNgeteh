@@ -3,7 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\SaleTemp;
-use App\Product;
+use App\Item;
 use \Auth, \Redirect, \Validator, \Input, \Session, \Response;
 use Illuminate\Http\Request;
 
@@ -22,7 +22,7 @@ class SaleTempApiController extends Controller {
 	public function index()
 	{
 		
-		return Response::json(SaleTemp::with('product')->get());
+		return Response::json(SaleTemp::with('item')->get());
 	}
 
 	/**
@@ -42,9 +42,8 @@ class SaleTempApiController extends Controller {
 	 */
 	public function store()
 	{
-
 		$SaleTemps = new SaleTemp;
-		$SaleTemps->product_id = Input::get('product_id');
+		$SaleTemps->item_id = Input::get('item_id');
 		$SaleTemps->cost_price = Input::get('cost_price');
         $SaleTemps->selling_price = Input::get('selling_price');
 		$SaleTemps->quantity = 1;

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 	<div class="row">
-		<div class="col-md-12 col-md-offset-0">
+		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-default">
 				<div class="panel-heading">{{trans('supplier.new_supplier')}}</div>
 
@@ -32,10 +32,10 @@
 					{!! Form::text('phone_number', Input::old('phone_number'), array('class' => 'form-control')) !!}
 					</div>
 
-<!-- 					<div class="form-group">
+					<div class="form-group">
 					{!! Form::label('avatar', trans('supplier.choose_avatar')) !!}
 					{!! Form::file('avatar', Input::old('avatar'), array('class' => 'form-control')) !!}
-					</div> -->
+					</div>
 
 					<div class="form-group">
 					{!! Form::label('address', trans('supplier.address')) !!}

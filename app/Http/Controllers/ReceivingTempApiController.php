@@ -3,7 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\ReceivingTemp;
-use App\Product;
+use App\Item, App\ItemKitItem;
 use DB, \Auth, \Redirect, \Validator, \Input, \Session, \Response;
 use Illuminate\Http\Request;
 
@@ -21,7 +21,7 @@ class ReceivingTempApiController extends Controller {
 	 */
 	public function index()
 	{
-		return Response::json(ReceivingTemp::with('product')->get());
+		return Response::json(ReceivingTemp::with('item')->get());
 	}
 
 	/**
@@ -46,7 +46,7 @@ class ReceivingTempApiController extends Controller {
 	//	$result_item_id = ReceivingTemp::where('item_id', '=', Input::get('item_id'))->first();
 		//	if ($result_item_id === null) {
 
-				$this->newProduct();
+				$this->newItem();
 
 
 			//			}
@@ -61,7 +61,7 @@ class ReceivingTempApiController extends Controller {
 			//	$this->updateItem();
 			//	}
 	}
-public function updateProduct()
+public function updateItem()
 {
 	$ReceivingTemps = ReceivingTemp::find(3);
 	$ReceivingTemps->quantity = 5;
@@ -69,13 +69,13 @@ public function updateProduct()
 	$ReceivingTemps->save();
 	return $ReceivingTemps;
 }
-public function newProduct()
+public function newItem()
 {
 	$type = Input::get('type');
 	if ($type == 1)
 	{
 		$ReceivingTemps = new ReceivingTemp;
-		$ReceivingTemps->product_id = Input::get('product_id');
+		$ReceivingTemps->item_id = Input::get('item_id');
 		$ReceivingTemps->cost_price = Input::get('cost_price');
 		$ReceivingTemps->total_cost = Input::get('total_cost');
 		$ReceivingTemps->quantity = 1;
@@ -84,14 +84,14 @@ public function newProduct()
 	}
 	else
 	{
-		$productkits = ProductKitProduct::where('product_kit_id', Input::get('product_id'))->get();
-		foreach($productkits as $value)
+		$itemkits = ItemKitItem::where('item_kit_id', Input::get('item_id'))->get();
+		foreach($itemkits as $value)
 		{
-			$product = Product::where('id', $value->product_id)->first();
+			$item = Item::where('id', $value->item_id)->first();
 			$ReceivingTemps = new ReceivingTemp;
-			$ReceivingTemps->product_id = $value->product_id;
-			$ReceivingTemps->cost_price = $product->cost_price;
-			$ReceivingTemps->total_cost = $product->cost_price * $value->quantity;
+			$ReceivingTemps->item_id = $value->item_id;
+			$ReceivingTemps->cost_price = $item->cost_price;
+			$ReceivingTemps->total_cost = $item->cost_price * $value->quantity;
 			$ReceivingTemps->quantity = $value->quantity;
 			$ReceivingTemps->save();
 			//return $ReceivingTemps;

@@ -5,7 +5,8 @@ return [
 	'dashboard' 			=> 'Dashboard',
 	'customers' 			=> 'Customers',
 	'employees'				=> 'Employees',
-	'products' 				=> 'Products',
+	'items' 				=> 'Items',
+	'item_kits' 			=> 'Item Kits',
 	'suppliers' 			=> 'Suppliers',
 	'receivings' 			=> 'Receivings',
 	'sales' 				=> 'Sales',
@@ -13,6 +14,6 @@ return [
 	'receivings_report' 	=> 'Receivings Report',
 	'sales_report' 			=> 'Sales Report',
 	'logout'				=> 'Logout',
-	'application_settings' 	=> 'Language Settings'
+	'application_settings' 	=> 'Application Settings'
 
 ];

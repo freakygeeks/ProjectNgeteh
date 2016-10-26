@@ -2,28 +2,27 @@
 
 return [
 
-	'product_receiving' => 'PRODUCTS RECEIVED',
-	'search_product' => 'Search Product:',
+	'item_receiving' => 'Items Receiving',
+	'search_item' => 'Search Item:',
 	'invoice' => 'Invoice',
 	'employee' => 'Employee',
 	'payment_type' => 'Payment Type',
 	'supplier' => 'Supplier',
-	'product_id' => 'Product ID',
-	'product_name' => 'Product Name',
+	'item_id' => 'Item ID',
+	'item_name' => 'Item Name',
 	'cost' => 'Cost',
 	'quantity' => 'Quantity',
 	'total' => 'Total',
-	'amount_tendered' => 'Amount Paid',
+	'amount_tendered' => 'Amount Tendered',
 	'comments' => 'Comments',
-	'grand_total' => 'AMOUNT DUE:',
-	'submit' => 'Finish Received',
+	'grand_total' => 'TOTAL:',
+	'submit' => 'Finish Receiving',
 	//struk
-	'receiving_id' => 'Received ID',
-	'product' => 'Product',
+	'receiving_id' => 'Receiving ID',
+	'item' => 'Item',
 	'price' => 'Price',
 	'qty' => 'Qty',
 	'print' => 'Print',
-	'new_receiving' => 'New Received',
-	'delete' => 'Delete',
+	'new_receiving' => 'New Receiving',
 
 ];

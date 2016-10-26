@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 	<div class="row">
-        <div class="col-md-12 col-md-offset-0">
+		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-default">
 				<div class="panel-heading">{{trans('customer.list_customers')}}</div>
 
@@ -19,10 +19,10 @@
         <tr>
             <td>{{trans('customer.customer_id')}}</td>
             <td>{{trans('customer.name')}}</td>
-<!--             <td>{{trans('customer.email')}}</td> -->
+            <td>{{trans('customer.email')}}</td>
             <td>{{trans('customer.phone_number')}}</td>
-            <td>{{trans('product.admin')}}</td>
-<!--             <td>{{trans('customer.avatar')}}</td> -->
+            <td>&nbsp;</td>
+            <td>{{trans('customer.avatar')}}</td>
         </tr>
     </thead>
     <tbody>
@@ -30,7 +30,7 @@
         <tr>
             <td>{{ $value->id }}</td>
             <td>{{ $value->name }}</td>
-<!--             <td>{{ $value->email }}</td> -->
+            <td>{{ $value->email }}</td>
             <td>{{ $value->phone_number }}</td>
             <td>
 
@@ -40,7 +40,7 @@
                     {!! Form::submit(trans('customer.delete'), array('class' => 'btn btn-warning')) !!}
                 {!! Form::close() !!}
             </td>
-<!--             <td>{!! Html::image(url() . '/images/customers/' . $value->avatar, 'a picture', array('class' => 'thumb')) !!}</td> -->
+            <td>{!! Html::image(url() . '/images/customers/' . $value->avatar, 'a picture', array('class' => 'thumb')) !!}</td>
         </tr>
     @endforeach
     </tbody>

@@ -2,15 +2,14 @@
 
 return [
 
-	'list_customers'	=> 'CUSTOMERS LIST',
+	'list_customers'	=> 'List Customers',
 	'new_customer' 		=> 'New Customer',
-	'customer_id'		=> 'ID',
+	'customer_id'		=> 'Customer ID',
 	'name' 				=> 'Name',
 	'email' 			=> 'Email',
 	'phone_number' 		=> 'Phone Number',
-	'admin'				=> 'Administration',
-	'avatar' 			=> 'Picture',
-	'choose_avatar'		=> 'Choose Picture',
+	'avatar' 			=> 'Avatar',
+	'choose_avatar'		=> 'Choose Avatar',
 	'address'			=> 'Address',
 	'city'				=> 'City',
 	'state'				=> 'State',

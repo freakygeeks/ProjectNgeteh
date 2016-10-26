@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html ng-app="ngeteh">
+<html ng-app="tutapos">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Project Ngeteh</title>
+	<title>TutaPOS</title>
 
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/footer.css') }}" rel="stylesheet">
@@ -29,17 +29,26 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</a>
+				<a class="navbar-brand" href="http://goo.gl/YT23la">TutaPOS</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/') }}">{{trans('menu.dashboard')}}</a></li>
 					@if (Auth::check())
-						
-						<li><a href="{{ url('/products') }}">{{trans('menu.products')}}</a></li>
 						<li><a href="{{ url('/customers') }}">{{trans('menu.customers')}}</a></li>
+						<li><a href="{{ url('/items') }}">{{trans('menu.items')}}</a></li>
+						<li><a href="{{ url('/item-kits') }}">{{trans('menu.item_kits')}}</a></li>
 						<li><a href="{{ url('/suppliers') }}">{{trans('menu.suppliers')}}</a></li>
+						<li><a href="{{ url('/receivings') }}">{{trans('menu.receivings')}}</a></li>
+						<li><a href="{{ url('/sales') }}">{{trans('menu.sales')}}</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{trans('menu.reports')}} <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="{{ url('/reports/receivings') }}">{{trans('menu.receivings_report')}}</a></li>
+								<li><a href="{{ url('/reports/sales') }}">{{trans('menu.sales_report')}}</a></li>
+							</ul>
+						</li>
 						<li><a href="{{ url('/employees') }}">{{trans('menu.employees')}}</a></li>
 					@endif
 				</ul>
@@ -51,7 +60,7 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{ url('/ngeteh-settings') }}">{{trans('menu.application_settings')}}</a></li>
+								<li><a href="{{ url('/tutapos-settings') }}">{{trans('menu.application_settings')}}</a></li>
 								<li class="divider"></li>
 								<li><a href="{{ url('/auth/logout') }}">{{trans('menu.logout')}}</a></li>
 							</ul>
@@ -61,31 +70,6 @@
 			</div>
 		</div>
 	</nav>
-
-	@if (Auth::check())
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 col-lg-2">
-                <nav class="navbar navbar-default navbar-fixed-side">
-                    <ul class="nav">
-                    <!-- normal collapsible navbar markup -->
-                    	<li><a href="{{ url('/sales') }}">{{trans('menu.sales')}}</a></li>
-                    	<li><a href="{{ url('/receivings') }}">{{trans('menu.receivings')}}</a></li>
-                    	<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{trans('menu.reports')}} <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{ url('/reports/receivings') }}">{{trans('menu.receivings_report')}}</a></li>
-								<li><a href="{{ url('/reports/sales') }}">{{trans('menu.sales_report')}}</a></li>
-							</ul>
-						</li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-sm-9 col-lg-9">
-            <!-- your page content -->
-            <!-- main content -->
-                <div class="container">
-	@endif
 
 	@yield('content')
 
@@ -98,12 +82,5 @@
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-
 </body>
 </html>

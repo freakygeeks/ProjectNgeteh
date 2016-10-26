@@ -16,7 +16,7 @@ class LanguangeMiddleware
      */
     public function handle($request, Closure $next)
     {
-        App::setLocale(DB::table('ngeteh_settings')->where('id', 1)->first()->languange);
+        App::setLocale(DB::table('tutapos_settings')->where('id', 1)->first()->languange);
         return $next($request);
     }
 }

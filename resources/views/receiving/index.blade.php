@@ -5,9 +5,9 @@
 
 <div class="container-fluid">
    <div class="row">
-        <div class="col-md-12 col-md-offset-0">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> {{trans('receiving.product_receiving')}}</div>
+                <div class="panel-heading"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> {{trans('receiving.item_receiving')}}</div>
 
             <div class="panel-body">
 
@@ -16,15 +16,15 @@
                 @endif
                 {!! Html::ul($errors->all()) !!}
 
-                <div class="row" ng-controller="SearchProductCtrl">
+                <div class="row" ng-controller="SearchItemCtrl">
 
                     <div class="col-md-3">
-                        <label>{{trans('receiving.search_product')}} <input ng-model="searchKeyword" class="form-control"></label>
+                        <label>{{trans('receiving.search_item')}} <input ng-model="searchKeyword" class="form-control"></label>
 
                         <table class="table table-hover">
-                        <tr ng-repeat="product in products  | filter: searchKeyword | limitTo:10">
+                        <tr ng-repeat="item in items  | filter: searchKeyword | limitTo:10">
 
-                        <td>@{{product.product_name}}</td><td><button class="btn btn-primary btn-xs" type="button" ng-click="addReceivingTemp(product,newreceivingtemp)"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button></td>
+                        <td>@{{item.item_name}}</td><td><button class="btn btn-primary btn-xs" type="button" ng-click="addReceivingTemp(item,newreceivingtemp)"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button></td>
 
                         </tr>
                         </table>
@@ -68,10 +68,9 @@
                         </div>
 
                         <table class="table table-bordered">
-                            <tr><th>{{trans('receiving.product_name')}}</th><th>{{trans('receiving.cost')}}</th><th>{{trans('receiving.quantity')}}</th><th>{{trans('receiving.total')}}</th><th>
-                            {{trans('receiving.delete')}}</th></tr>
+                            <tr><th>{{trans('receiving.item_id')}}</th><th>{{trans('receiving.item_name')}}</th><th>{{trans('receiving.cost')}}</th><th>{{trans('receiving.quantity')}}</th><th>{{trans('receiving.total')}}</th><th>&nbsp;</th></tr>
                             <tr ng-repeat="newreceivingtemp in receivingtemp">
-                            <td>@{{newreceivingtemp.product.product_name}}</td><td>@{{newreceivingtemp.product.cost_price | currency}}</td><td><input type="text" style="text-align:center" autocomplete="off" name="quantity" ng-change="updateReceivingTemp(newreceivingtemp)" ng-model="newreceivingtemp.quantity" size="2"></td><td>@{{newreceivingtemp.product.cost_price * newreceivingtemp.quantity | currency}}</td><td><button class="btn btn-danger btn-xs" type="button" ng-click="removeReceivingTemp(newreceivingtemp.id)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
+                            <td>@{{newreceivingtemp.item_id}}</td><td>@{{newreceivingtemp.item.item_name}}</td><td>@{{newreceivingtemp.item.cost_price | currency}}</td><td><input type="text" style="text-align:center" autocomplete="off" name="quantity" ng-change="updateReceivingTemp(newreceivingtemp)" ng-model="newreceivingtemp.quantity" size="2"></td><td>@{{newreceivingtemp.item.cost_price * newreceivingtemp.quantity | currency}}</td><td><button class="btn btn-danger btn-xs" type="button" ng-click="removeReceivingTemp(newreceivingtemp.id)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
                             </tr>
                         </table>
 
@@ -104,7 +103,7 @@
                                         </div>
                                     </div>
                                     <div>&nbsp;</div>
-                                    <div class="form-group" ng-show="receivingtemp.length > 0">
+                                    <div class="form-group">
                                         <div class="col-sm-12">
                                         <button type="submit" class="btn btn-primary btn-block">{{trans('receiving.submit')}}</button>
                                         </div>

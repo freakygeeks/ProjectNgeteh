@@ -5,7 +5,7 @@
 
 <div class="container-fluid">
    <div class="row">
-        <div class="col-md-12 col-md-offset-0">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> {{trans('sale.sales_register')}}</div>
 
@@ -16,17 +16,16 @@
                 @endif
                 {!! Html::ul($errors->all()) !!}
                 
-                <div class="row" ng-controller="SearchProductCtrl">
+                <div class="row" ng-controller="SearchItemCtrl">
 
                     <div class="col-md-3">
-                        <label>{{trans('sale.search_product')}} <input ng-model="searchKeyword" class="form-control"></label>
+                        <label>{{trans('sale.search_item')}} <input ng-model="searchKeyword" class="form-control"></label>
 
                         <table class="table table-hover">
-                        <tr ng-repeat="product in products  | filter: searchKeyword | limitTo:10">
+                        <tr ng-repeat="item in items  | filter: searchKeyword | limitTo:10">
 
-                        <td>@{{product.product_name}}</td>
-
-                        <td><button class="btn btn-success btn-xs" type="button" ng-click="addSaleTemp(product, newsaletemp)"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button></td>
+                        <td>@{{item.item_name}}</td>
+                        <td><button class="btn btn-success btn-xs" type="button" ng-click="addSaleTemp(item, newsaletemp)"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button></td>
 
                         </tr>
                         </table>
@@ -71,10 +70,9 @@
                         </div>
                            
                         <table class="table table-bordered">
-                            <tr><!-- <th>{{trans('sale.product_id')}}</th> --><th>{{trans('sale.product_name')}}</th><th>{{trans('sale.price')}}</th><th>{{trans('sale.quantity')}}</th><th>{{trans('sale.total')}}</th><th>
-                            {{trans('sale.delete')}}</th></tr>
+                            <tr><th>{{trans('sale.item_id')}}</th><th>{{trans('sale.item_name')}}</th><th>{{trans('sale.price')}}</th><th>{{trans('sale.quantity')}}</th><th>{{trans('sale.total')}}</th><th>&nbsp;</th></tr>
                             <tr ng-repeat="newsaletemp in saletemp">
-                            <!-- <td>@{{newsaletemp.product_id}}</td> --><td>@{{newsaletemp.product.product_name}}</td><td>@{{newsaletemp.product.selling_price | currency}}</td><td><input type="text" style="text-align:center" autocomplete="off" name="quantity" ng-change="updateSaleTemp(newsaletemp)" ng-model="newsaletemp.quantity" size="2"></td><td>@{{newsaletemp.product.selling_price * newsaletemp.quantity | currency}}</td><td><button class="btn btn-danger btn-xs" type="button" ng-click="removeSaleTemp(newsaletemp.id)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
+                            <td>@{{newsaletemp.item_id}}</td><td>@{{newsaletemp.item.item_name}}</td><td>@{{newsaletemp.item.selling_price | currency}}</td><td><input type="text" style="text-align:center" autocomplete="off" name="quantity" ng-change="updateSaleTemp(newsaletemp)" ng-model="newsaletemp.quantity" size="2"></td><td>@{{newsaletemp.item.selling_price * newsaletemp.quantity | currency}}</td><td><button class="btn btn-danger btn-xs" type="button" ng-click="removeSaleTemp(newsaletemp.id)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
                             </tr>
                         </table>
 
@@ -104,8 +102,15 @@
                                             <p class="form-control-static"><b>@{{sum(saletemp) | currency}}</b></p>
                                         </div>
                                     </div>
-                                    <div>&nbsp;</div>
-                                    <div class="form-group" ng-show="saletemp.length > 0">
+
+                                    <div class="form-group">
+                                            <label for="amount_due" class="col-sm-4 control-label">{{trans('sale.amount_due')}}</label>
+                                            <div class="col-sm-8">
+                                            <p class="form-control-static">@{{add_payment - sum(saletemp) | currency}}</p>
+                                            </div>
+                                    </div>
+
+                                    <div class="form-group">
                                         <div class="col-sm-12">
                                             <button type="submit" class="btn btn-success btn-block">{{trans('sale.submit')}}</button>
                                         </div>

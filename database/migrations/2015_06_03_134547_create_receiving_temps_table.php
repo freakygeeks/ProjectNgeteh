@@ -15,8 +15,8 @@ class CreateReceivingTempsTable extends Migration {
 		Schema::create('receiving_temps', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('product_id')->unsigned();
-			$table->foreign('product_id')->references('id')->on('products')->onDelete('restrict');
+			$table->integer('item_id')->unsigned();
+			$table->foreign('item_id')->references('id')->on('items')->onDelete('restrict');
 			$table->decimal('cost_price',9, 2);
 			$table->integer('quantity');
 			$table->decimal('total_cost',9, 2);

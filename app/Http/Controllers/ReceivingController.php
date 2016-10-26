@@ -4,10 +4,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Receiving;
 use App\ReceivingTemp;
-use App\ReceivingProduct;
+use App\ReceivingItem;
 use App\Inventory;
 use App\Supplier;
-use App\Product;
+use App\Item;
 use App\Http\Requests\ReceivingRequest;
 use \Auth, \Redirect, \Validator, \Input, \Session;
 use Illuminate\Http\Request;
@@ -57,36 +57,36 @@ class ReceivingController extends Controller {
             $receivings->comments = Input::get('comments');
             $receivings->save();
             // process receiving items
-            $receivingProducts = ReceivingTemp::all();
-			foreach ($receivingProducts as $value) {
-				$receivingProductsData = new ReceivingProduct;
-				$receivingProductsData->receiving_id = $receivings->id;
-				$receivingProductsData->product_id = $value->product_id;
-				$receivingProductsData->cost_price = $value->cost_price;
-				$receivingProductsData->quantity = $value->quantity;
-				$receivingProductsData->total_cost = $value->total_cost;
-				$receivingProductsData->save();
+            $receivingItems = ReceivingTemp::all();
+			foreach ($receivingItems as $value) {
+				$receivingItemsData = new ReceivingItem;
+				$receivingItemsData->receiving_id = $receivings->id;
+				$receivingItemsData->item_id = $value->item_id;
+				$receivingItemsData->cost_price = $value->cost_price;
+				$receivingItemsData->quantity = $value->quantity;
+				$receivingItemsData->total_cost = $value->total_cost;
+				$receivingItemsData->save();
 				//process inventory
-				$products = Product::find($value->product_id);
+				$items = Item::find($value->item_id);
 				$inventories = new Inventory;
-				$inventories->product_id = $value->product_id;
+				$inventories->item_id = $value->item_id;
 				$inventories->user_id = Auth::user()->id;
 				$inventories->in_out_qty = $value->quantity;
-				$inventories->remarks = 'PURCHASE'.$receivings->id;
+				$inventories->remarks = 'RECV'.$receivings->id;
 				$inventories->save();
 				//process item quantity
-	            $products->quantity = $products->quantity + $value->quantity;
-	            $products->save();
+	            $items->quantity = $items->quantity + $value->quantity;
+	            $items->save();
 			}
 			//delete all data on ReceivingTemp model
 			ReceivingTemp::truncate();
-			$productsreceiving = ReceivingProduct::where('receiving_id', $receivingProductsData->receiving_id)->get();
+			$itemsreceiving = ReceivingItem::where('receiving_id', $receivingItemsData->receiving_id)->get();
             Session::flash('message', 'You have successfully added receivings');
             //return Redirect::to('receivings');
             return view('receiving.complete')
             	->with('receivings', $receivings)
-            	->with('receivingProductsData', $receivingProductsData)
-            	->with('receivingProducts', $productsreceiving);
+            	->with('receivingItemsData', $receivingItemsData)
+            	->with('receivingItems', $itemsreceiving);
 
 
 	}
@@ -121,14 +121,14 @@ class ReceivingController extends Controller {
 	 */
 	public function update($id)
 	{
-            $products = Product::find($id);
+            $items = Item::find($id);
             // process inventory
 			$receivingTemps = new ReceivingTemp;
-			$inventories->product_id = $id;
+			$inventories->item_id = $id;
 			$inventories->quantity = Input::get('quantity');
 			$inventories->save();
 			
-            Session::flash('message', 'You have successfully add product');
+            Session::flash('message', 'You have successfully add item');
             return Redirect::to('receivings');
 	}
 

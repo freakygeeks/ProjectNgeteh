@@ -2,12 +2,11 @@
 
 return [
 
-	'list_employees' => 'EMPLOYEES LIST',
+	'list_employees' => 'List Employees',
 	'new_employee' => 'New Employee',
-	'person_id' => 'ID',
+	'person_id' => 'Person ID',
 	'name' => 'Name',
 	'email' => 'Email',
-	'admin' => 'Administration',
 	'password' => 'Password',
 	'confirm_password' => 'Confirm Password',
 	'submit' => 'Submit',

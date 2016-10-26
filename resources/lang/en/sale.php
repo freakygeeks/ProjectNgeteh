@@ -2,29 +2,28 @@
 
 return [
 
-	'sales_register' => 'SALES REGISTER',
-	'search_product' => 'Search Product:',
+	'sales_register' => 'Sales Register',
+	'search_item' => 'Search Item:',
 	'invoice' => 'Invoice',
 	'employee' => 'Employee',
 	'payment_type' => 'Payment Type',
 	'customer' => 'Customer',
-	'product_id' => 'Product ID',
-	'product_name' => 'Product Name',
+	'item_id' => 'Item ID',
+	'item_name' => 'Item Name',
 	'price' => 'Price',
 	'quantity' => 'Quantity',
 	'total' => 'Total',
-	'add_payment' => 'Payment Paid',
+	'add_payment' => 'Add Payment',
 	'comments' => 'Comments',
-	'grand_total' => 'PAYMENT DUE:',
+	'grand_total' => 'TOTAL:',
 	'amount_due' => 'Amount Due',
 	'submit' => 'Complete Sale',
 	//struk
 	'sale_id' => 'Sale ID',
-	'product' => 'Product',
+	'item' => 'Item',
 	'price' => 'Price',
 	'qty' => 'Qty',
 	'print' => 'Print',
 	'new_sale' => 'New Sale',
-	'delete' => 'Delete',
 
 ];

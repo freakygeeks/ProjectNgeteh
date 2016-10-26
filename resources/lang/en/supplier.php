@@ -2,16 +2,14 @@
 
 return [
 
-	'list_suppliers'	=> 'SUPPLIERS LIST',
+	'list_suppliers'	=> 'List Suppliers',
 	'new_supplier'		=> 'New Supplier',
-	'supplier_id'		=> 'ID',
-	'company_name' 		=> 'Company',
-	'name' 	=> 'Manager Name',
+	'company_name' 		=> 'Company Name',
+	'name' 	=> 'Name',
 	'email' 	=> 'Email',
 	'phone_number' => 'Phone Number',
-	'admin'			=> 'Administration',
-	'avatar'		=> 'Picture',
-	'choose_avatar' => 'Choose Picture:',
+	'avatar'		=> 'Avatar',
+	'choose_avatar' => 'Choose Avatar:',
 	'address' => 'Address',
 	'city' => 'City',
 	'state' => 'State',

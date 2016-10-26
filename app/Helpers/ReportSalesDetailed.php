@@ -1,13 +1,13 @@
 <?php
 
-use App\SaleProduct;
+use App\SaleItem;
 
 class ReportSalesDetailed {
 
     public static function sale_detailed($sale_id)
     {
-        $SaleProducts = SaleProduct::where('sale_id', $sale_id)->get();
-        return $SaleProducts;
+        $SaleItems = SaleItem::where('sale_id', $sale_id)->get();
+        return $SaleItems;
     }
 
 }

@@ -46,7 +46,7 @@ class CustomerController extends Controller {
 	            // store
 	            $customers = new Customer;
 	            $customers->name = Input::get('name');
-	            // $customers->email = Input::get('email');
+	            $customers->email = Input::get('email');
 	            $customers->phone_number = Input::get('phone_number');
 	            $customers->address = Input::get('address');
 	            $customers->city = Input::get('city');
